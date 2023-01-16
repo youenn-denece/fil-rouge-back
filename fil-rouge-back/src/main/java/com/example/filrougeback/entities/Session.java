@@ -1,11 +1,9 @@
 package com.example.filrougeback.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Session {
@@ -14,11 +12,21 @@ public class Session {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int courseId;
+    @ManyToOne
+    @JoinColumn(name = "CAMPUS_ID")
+    private Campus campus;
 
-    private int campusId;
+    @ManyToOne
+    @JoinColumn(name = "TEACHER_ID")
+    private Teacher teacher;
 
-    private int classroomId;
+    @ManyToOne
+    @JoinColumn(name = "COURSE_ID")
+    private Course course;
+
+    @ManyToOne
+    @JoinColumn(name = "CLASSROOM_ID")
+    private Classroom classroom;
 
     private boolean isInter;
 
@@ -30,7 +38,12 @@ public class Session {
 
     private int maxStudentNumber;
 
-    // studentList :array
+    @ManyToMany
+    @JoinTable(name = "SESSION_STUDENT",
+            joinColumns = @JoinColumn(name = "SESSION_ID", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "STUDENT_ID", referencedColumnName = "id"))
+    private List<Student> studentList;
+
 
 
     // Constructor
@@ -39,83 +52,76 @@ public class Session {
 
     }
 
-    public Session(int courseId, int campusId, int classroomId, boolean isInter, Date startDate, Date endDate, double price, int maxStudentNumber) {
-        this.courseId = courseId;
-        this.campusId = campusId;
-        this.classroomId = classroomId;
+    public Session(Campus campus, Teacher teacher, Course course, Classroom classroom, boolean isInter, Date startDate, Date endDate, double price, int maxStudentNumber, List<Student> studentList) {
+        this.campus = campus;
+        this.teacher = teacher;
+        this.course = course;
+        this.classroom = classroom;
         this.isInter = isInter;
         this.startDate = startDate;
         this.endDate = endDate;
         this.price = price;
         this.maxStudentNumber = maxStudentNumber;
+        this.studentList = studentList;
     }
 
-
-    // Getter and Setter
-
-
     public int getId() {
-
         return id;
     }
 
     public void setId(int id) {
-
         this.id = id;
     }
 
-    public int getCourseId() {
-
-        return courseId;
+    public Campus getCampus() {
+        return campus;
     }
 
-    public void setCourseId(int courseId) {
-
-        this.courseId = courseId;
+    public void setCampus(Campus campus) {
+        this.campus = campus;
     }
 
-    public int getCampusId() {
-
-        return campusId;
+    public Teacher getTeacher() {
+        return teacher;
     }
 
-    public void setCampusId(int campusId) {
-
-        this.campusId = campusId;
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
-    public int getClassroomId() {
-
-        return classroomId;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setClassroomId(int classroomId) {
+    public void setCourse(Course course) {
+        this.course = course;
+    }
 
-        this.classroomId = classroomId;
+    public Classroom getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroom(Classroom classroom) {
+        this.classroom = classroom;
     }
 
     public boolean isInter() {
-
         return isInter;
     }
 
     public void setInter(boolean inter) {
-
         isInter = inter;
     }
 
     public Date getStartDate() {
-
         return startDate;
     }
 
     public void setStartDate(Date startDate) {
-
         this.startDate = startDate;
     }
 
     public Date getEndDate() {
-
         return endDate;
     }
 
@@ -123,37 +129,44 @@ public class Session {
         this.endDate = endDate;
     }
 
-    public Double getPrice() {
-
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
-
+    public void setPrice(double price) {
         this.price = price;
     }
 
     public int getMaxStudentNumber() {
-
         return maxStudentNumber;
     }
 
     public void setMaxStudentNumber(int maxStudentNumber) {
-
         this.maxStudentNumber = maxStudentNumber;
+    }
+
+    public List<Student> getStudentList() {
+        return studentList;
+    }
+
+    public void setStudentList(List<Student> studentList) {
+        this.studentList = studentList;
     }
 
     @Override
     public String toString() {
         return "Session{" +
-                "courseId=" + courseId +
-                ", campusId=" + campusId +
-                ", classroomId=" + classroomId +
+                "id=" + id +
+                ", campus=" + campus +
+                ", teacher=" + teacher +
+                ", course=" + course +
+                ", classroom=" + classroom +
                 ", isInter=" + isInter +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", price=" + price +
                 ", maxStudentNumber=" + maxStudentNumber +
+                ", studentList=" + studentList +
                 '}';
     }
 }

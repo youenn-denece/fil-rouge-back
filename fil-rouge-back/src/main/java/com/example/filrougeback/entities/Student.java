@@ -1,86 +1,25 @@
 package com.example.filrougeback.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
-import java.util.Date;
+import java.util.List;
 
 @Entity
-public class Student {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String firstname;
-
-    private String lastname;
-
-    private Date birthday;
-
-    private String email;
-
-    private String password;
-
+@DiscriminatorValue("Student")
+public class Student extends User {
     private String company;
 
-
-    // Constructor
+    @ManyToMany(mappedBy = "studentList")
+    private List<Session> sessionList;
 
     public Student() {
+        super();
     }
 
-    public Student(String firstname, String lastname, Date birthday, String email, String password, String company) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.birthday = birthday;
-        this.email = email;
-        this.password = password;
+    public Student(String firstname, String lastname, String email, String password, String company, List<Session> sessionList) {
+        super(firstname, lastname, email, password);
         this.company = company;
-    }
-
-    // Getter and Setter
-
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+        this.sessionList = sessionList;
     }
 
     public String getCompany() {
@@ -91,16 +30,19 @@ public class Student {
         this.company = company;
     }
 
+    public List<Session> getSessionList() {
+        return sessionList;
+    }
+
+    public void setSessionList(List<Session> sessionList) {
+        this.sessionList = sessionList;
+    }
 
     @Override
     public String toString() {
         return "Student{" +
-                "firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", birthday=" + birthday +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", company='" + company + '\'' +
+                "company='" + company + '\'' +
+                ", sessionList=" + sessionList +
                 '}';
     }
 }
