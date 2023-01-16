@@ -1,47 +1,40 @@
 package com.example.filrougeback.entities;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
-public class Teacher {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int courseId;
+@DiscriminatorValue("Teacher")
+public class Teacher extends User {
 
     private double grade;
 
-    // notAvailableDates : array
+    @ManyToOne
+    @JoinColumn(name = "COURSE_ID")
+    private Course course;
 
-    // Constructor
+    @OneToMany(mappedBy = "teacher")
+    private List<Session> sessionList;
+
 
     public Teacher() {
-
     }
 
-    public Teacher(double grade) {
+    public Teacher(double grade, Course course, List<Session> sessionList) {
+        super();
         this.grade = grade;
-    }
-
-    // Getter and Setter
-
-
-    public double getGrade() {
-        return grade;
-    }
-
-    public void setGrade(double grade) {
-        this.grade = grade;
+        this.course = course;
+        this.sessionList = sessionList;
     }
 
     @Override
     public String toString() {
         return "Teacher{" +
                 "grade=" + grade +
+                ", course=" + course +
+                ", sessionList=" + sessionList +
                 '}';
     }
 }

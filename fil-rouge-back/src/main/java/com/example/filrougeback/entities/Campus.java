@@ -1,9 +1,8 @@
 package com.example.filrougeback.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Campus {
@@ -12,9 +11,15 @@ public class Campus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int name;
+    private String name;
 
-    private int city;
+    private String city;
+
+    @OneToMany(mappedBy = "campus")
+    private List<Session> sessionList;
+
+    @OneToMany(mappedBy = "campus")
+    private List<Classroom> classroomList;
 
     // Constructor
 
@@ -22,55 +27,61 @@ public class Campus {
 
     }
 
-    public Campus(int name, int city) {
+    public Campus(String name, String city, List<Session> sessionList, List<Classroom> classroomList) {
         this.name = name;
         this.city = city;
+        this.sessionList = sessionList;
+        this.classroomList = classroomList;
     }
 
-
-    // Getter and Setter
-
-
     public int getId() {
-
         return id;
     }
 
     public void setId(int id) {
-
         this.id = id;
     }
 
-    public int getName() {
-
+    public String getName() {
         return name;
     }
 
-    public void setName(int name) {
-
+    public void setName(String name) {
         this.name = name;
     }
 
-    public int getCity() {
-
+    public String getCity() {
         return city;
     }
 
-    public void setCity(int city) {
-
+    public void setCity(String city) {
         this.city = city;
+    }
+
+    public List<Session> getSessionList() {
+        return sessionList;
+    }
+
+    public void setSessionList(List<Session> sessionList) {
+        this.sessionList = sessionList;
+    }
+
+    public List<Classroom> getClassroomList() {
+        return classroomList;
+    }
+
+    public void setClassroomList(List<Classroom> classroomList) {
+        this.classroomList = classroomList;
     }
 
     @Override
     public String toString() {
         return "Campus{" +
-                "name=" + name +
-                ", city=" + city +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", city='" + city + '\'' +
+                ", sessionList=" + sessionList +
+                ", classroomList=" + classroomList +
                 '}';
     }
-
-
-
-
-
 }
