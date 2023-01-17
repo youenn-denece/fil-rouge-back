@@ -1,6 +1,7 @@
 package com.example.filrougeback.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.Date;
 import java.util.List;
@@ -28,10 +29,13 @@ public class Session {
     @JoinColumn(name = "CLASSROOM_ID")
     private Classroom classroom;
 
+    @ColumnDefault("true")
     private boolean isInter;
 
+    @Temporal(TemporalType.DATE)
     private Date startDate;
 
+    @Temporal(TemporalType.DATE)
     private Date endDate;
 
     private double price;
