@@ -14,6 +14,7 @@ public class Course {
 
     private String name;
 
+    @Column(columnDefinition="TEXT")
     private String description;
 
     @ManyToOne
