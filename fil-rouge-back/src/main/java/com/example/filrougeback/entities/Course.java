@@ -1,8 +1,11 @@
 package com.example.filrougeback.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -13,7 +16,7 @@ public class Course {
     private int id;
 
     private String name;
-
+    @Column(columnDefinition="TEXT")
     private String description;
 
     @ManyToOne
@@ -21,10 +24,12 @@ public class Course {
     private Category category;
 
     @OneToMany(mappedBy = "course")
-    private List<Teacher> teacherList;
+    @JsonIgnore
+    private Collection<Teacher> teacherList;
 
     @OneToMany(mappedBy = "course")
-    private List<Session> sessionList;
+    @JsonIgnore
+    private Collection<Session> sessionList;
 
 
     // Constructor
@@ -33,7 +38,7 @@ public class Course {
 
     }
 
-    public Course(String name, String description, Category category, List<Teacher> teacherList, List<Session> sessionList) {
+    public Course(String name, String description, Category category, Collection<Teacher> teacherList, Collection<Session> sessionList) {
         this.name = name;
         this.description = description;
         this.category = category;
@@ -73,19 +78,19 @@ public class Course {
         this.category = category;
     }
 
-    public List<Teacher> getTeacherList() {
+    public Collection<Teacher> getTeacherList() {
         return teacherList;
     }
 
-    public void setTeacherList(List<Teacher> teacherList) {
+    public void setTeacherList(Collection<Teacher> teacherList) {
         this.teacherList = teacherList;
     }
 
-    public List<Session> getSessionList() {
+    public Collection<Session> getSessionList() {
         return sessionList;
     }
 
-    public void setSessionList(List<Session> sessionList) {
+    public void setSessionList(Collection<Session> sessionList) {
         this.sessionList = sessionList;
     }
 
