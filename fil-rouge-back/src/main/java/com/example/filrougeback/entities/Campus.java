@@ -1,9 +1,12 @@
 package com.example.filrougeback.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.List;
 
+@Data
 @Entity
 public class Campus {
 
@@ -15,9 +18,11 @@ public class Campus {
 
     private String city;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "campus")
     private List<Session> sessionList;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "campus")
     private List<Classroom> classroomList;
 
@@ -74,14 +79,4 @@ public class Campus {
         this.classroomList = classroomList;
     }
 
-    @Override
-    public String toString() {
-        return "Campus{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", city='" + city + '\'' +
-                ", sessionList=" + sessionList +
-                ", classroomList=" + classroomList +
-                '}';
-    }
 }

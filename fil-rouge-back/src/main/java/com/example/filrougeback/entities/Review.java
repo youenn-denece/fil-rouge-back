@@ -5,8 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Data;
 
-
+@Data
 @Entity
 public class Review {
 
@@ -200,29 +201,5 @@ public class Review {
     public void setFutureProjects(boolean futureProjects) {
         this.futureProjects = futureProjects;
     }
-
-    @Override
-    public String toString() {
-        return "Review{" +
-                "userId=" + userId +
-                ", teacherId=" + teacherId +
-                ", sessionId=" + sessionId +
-                ", welcomeGrade=" + welcomeGrade +
-                ", servicesGrade=" + servicesGrade +
-                ", sessionGrade=" + sessionGrade +
-                ", pedagogyGrade=" + pedagogyGrade +
-                ", knowledgeGrade=" + knowledgeGrade +
-                ", availabilityGrade=" + availabilityGrade +
-                ", replyingGrade=" + replyingGrade +
-                ", ambianceGrade=" + ambianceGrade +
-                ", satisfactionGrade=" + satisfactionGrade +
-                ", comments='" + comments + '\'' +
-                ", recommandation=" + recommandation +
-                ", futureProjects=" + futureProjects +
-                '}';
-    }
-
-
-
 
 }

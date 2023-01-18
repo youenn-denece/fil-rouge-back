@@ -1,9 +1,13 @@
 package com.example.filrougeback.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.List;
 
+@Data
 @Entity
 public class Classroom {
 
@@ -13,10 +17,12 @@ public class Classroom {
 
     private int roomNumber;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "CAMPUS_ID")
     private Campus campus;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "classroom")
     private List<Session> sessionList;
 
@@ -66,13 +72,4 @@ public class Classroom {
         this.sessionList = sessionList;
     }
 
-    @Override
-    public String toString() {
-        return "Classroom{" +
-                "id=" + id +
-                ", roomNumber=" + roomNumber +
-                ", campus=" + campus +
-                ", sessionList=" + sessionList +
-                '}';
-    }
 }

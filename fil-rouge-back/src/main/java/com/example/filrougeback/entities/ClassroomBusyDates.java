@@ -4,9 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Data;
 
 import java.util.Date;
-
+@Data
 @Entity
 public class ClassroomBusyDates {
 
@@ -33,12 +34,4 @@ public class ClassroomBusyDates {
         this.endDate = endDate;
     }
 
-    @Override
-    public String toString() {
-        return "ClassroomBusyDates{" +
-                "classroomId=" + classroomId +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                '}';
-    }
 }

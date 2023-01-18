@@ -25,20 +25,16 @@ public class Course {
     private String description;
 
     @JsonBackReference
-    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "CATEGORY_ID")
     private Category category;
 
     @JsonManagedReference
-    @JsonIgnore
     @OneToMany(mappedBy = "course",fetch = FetchType.LAZY)
     private Collection<Teacher> teacherList;
 
-    @JsonManagedReference
-    @JsonIgnore
-    @OneToMany(mappedBy = "course",fetch = FetchType.LAZY)
-    private Collection<Session> sessionList;
+    @OneToMany(mappedBy = "course")
+    private List<Session> sessionList;
 
 
     // Constructor
@@ -47,7 +43,7 @@ public class Course {
 
     }
 
-    public Course(String name, String description, Category category, Collection<Teacher> teacherList, Collection<Session> sessionList) {
+    public Course(String name, String description, Category category, Collection<Teacher> teacherList, List<Session> sessionList) {
         this.name = name;
         this.description = description;
         this.category = category;
@@ -95,11 +91,12 @@ public class Course {
         this.teacherList = teacherList;
     }
 
-    public Collection<Session> getSessionList() {
+    @JsonManagedReference
+    public List<Session> getSessionList() {
         return sessionList;
     }
 
-    public void setSessionList(Collection<Session> sessionList) {
+    public void setSessionList(List<Session> sessionList) {
         this.sessionList = sessionList;
     }
 
