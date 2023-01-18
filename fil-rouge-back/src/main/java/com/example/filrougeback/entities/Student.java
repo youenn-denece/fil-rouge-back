@@ -1,9 +1,11 @@
 package com.example.filrougeback.entities;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.List;
 
+@Data
 @Entity
 @DiscriminatorValue("Student")
 public class Student extends User {
@@ -38,11 +40,4 @@ public class Student extends User {
         this.sessionList = sessionList;
     }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "company='" + company + '\'' +
-                ", sessionList=" + sessionList +
-                '}';
-    }
 }

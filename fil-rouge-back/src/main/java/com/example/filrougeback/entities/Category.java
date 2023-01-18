@@ -21,7 +21,6 @@ public class Category {
     private String name;
 
     @JsonManagedReference
-    @ToString.Exclude
     @OneToMany(mappedBy = "category",fetch = FetchType.EAGER)
     private Collection<Course> courseList;
 
