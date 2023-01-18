@@ -3,12 +3,16 @@ package com.example.filrougeback.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.ToString;
 
 import java.util.Collection;
 import java.util.List;
 
 @Entity
+@Data
 public class Course {
 
     @Id
@@ -19,16 +23,20 @@ public class Course {
     @Column(columnDefinition="TEXT")
     private String description;
 
+    @JsonBackReference
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "CATEGORY_ID")
     private Category category;
 
-    @OneToMany(mappedBy = "course")
+    @JsonManagedReference
     @JsonIgnore
+    @OneToMany(mappedBy = "course",fetch = FetchType.LAZY)
     private Collection<Teacher> teacherList;
 
-    @OneToMany(mappedBy = "course")
+    @JsonManagedReference
     @JsonIgnore
+    @OneToMany(mappedBy = "course",fetch = FetchType.LAZY)
     private Collection<Session> sessionList;
 
 
@@ -94,15 +102,4 @@ public class Course {
         this.sessionList = sessionList;
     }
 
-    @Override
-    public String toString() {
-        return "Course{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", category=" + category +
-                ", teacherList=" + teacherList +
-                ", sessionList=" + sessionList +
-                '}';
-    }
 }

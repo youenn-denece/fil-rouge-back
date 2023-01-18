@@ -1,6 +1,7 @@
 package com.example.filrougeback.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -11,6 +12,7 @@ public class Teacher extends User {
 
     private double grade;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "COURSE_ID")
     private Course course;

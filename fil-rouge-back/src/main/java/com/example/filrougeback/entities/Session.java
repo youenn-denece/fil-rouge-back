@@ -1,5 +1,6 @@
 package com.example.filrougeback.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -21,6 +22,7 @@ public class Session {
     @JoinColumn(name = "TEACHER_ID")
     private Teacher teacher;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "COURSE_ID")
     private Course course;

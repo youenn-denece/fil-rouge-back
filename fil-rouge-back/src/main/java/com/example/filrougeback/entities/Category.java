@@ -3,11 +3,14 @@ package com.example.filrougeback.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.ToString;
 
 import java.util.Collection;
 import java.util.List;
 
 @Entity
+@Data
 public class Category {
 
     @Id
@@ -17,8 +20,9 @@ public class Category {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "category")
-    @JsonIgnore
+    @JsonManagedReference
+    @ToString.Exclude
+    @OneToMany(mappedBy = "category",fetch = FetchType.EAGER)
     private Collection<Course> courseList;
 
     // Constructor
@@ -56,12 +60,4 @@ public class Category {
         this.courseList = courseList;
     }
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", courseList=" + courseList +
-                '}';
-    }
 }
