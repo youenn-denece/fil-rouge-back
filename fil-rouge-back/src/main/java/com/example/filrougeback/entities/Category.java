@@ -1,7 +1,10 @@
 package com.example.filrougeback.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -15,7 +18,8 @@ public class Category {
     private String name;
 
     @OneToMany(mappedBy = "category")
-    private List<Course> courseList;
+    @JsonIgnore
+    private Collection<Course> courseList;
 
     // Constructor
 
@@ -23,7 +27,7 @@ public class Category {
 
     }
 
-    public Category(String name, List<Course> courseList) {
+    public Category(String name, Collection<Course> courseList) {
         this.name = name;
         this.courseList = courseList;
     }
@@ -44,11 +48,11 @@ public class Category {
         this.name = name;
     }
 
-    public List<Course> getCourseList() {
+    public Collection<Course> getCourseList() {
         return courseList;
     }
 
-    public void setCourseList(List<Course> courseList) {
+    public void setCourseList(Collection<Course> courseList) {
         this.courseList = courseList;
     }
 
