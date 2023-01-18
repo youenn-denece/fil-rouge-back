@@ -29,11 +29,6 @@ public class CourseController {
         return courseRepository.findById(Long.valueOf(id));
     }
 
-    @GetMapping("/byCatId/{catId}")
-    public Collection<Course> getCourseByCatId(@PathVariable Integer catId) {
-        return courseRepository.findByCatId();
-    }
-
     @PostMapping("/createCourse")
     public ResponseEntity<String> createCourse(@RequestBody Course course) {
         courseRepository.save(course);

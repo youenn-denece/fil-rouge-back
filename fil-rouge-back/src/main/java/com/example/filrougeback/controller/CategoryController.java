@@ -28,5 +28,9 @@ public class CategoryController {
     public List<Category> getAllCategory() {
         return (List<Category>) categoryRepository.findAll();
     }
-
+    @GetMapping("/{id}")
+    public Category getCategoryById(@PathVariable Integer id) {
+        Category cat = categoryRepository.findById(Long.valueOf(id)).get();
+        return cat;
+    }
 }

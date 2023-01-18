@@ -7,11 +7,9 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.List;
 
 @Repository
 public interface CourseRepository extends CrudRepository<Course, Long> {
-    @Query(
-            value = "SELECT co.name, co.id FROM course AS co JOIN category AS ca ON co.category_id = ca.id",
-            nativeQuery = true)
-    Collection<Course> findByCatId( );
+
 }
