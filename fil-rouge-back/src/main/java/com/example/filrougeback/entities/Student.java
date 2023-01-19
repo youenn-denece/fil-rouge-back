@@ -3,6 +3,7 @@ package com.example.filrougeback.entities;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @DiscriminatorValue("Student")
@@ -16,8 +17,8 @@ public class Student extends User {
         super();
     }
 
-    public Student(String firstname, String lastname, String email, String password, String company, List<Session> sessionList) {
-        super(firstname, lastname, email, password);
+    public Student(String firstname, String lastname, String email, String password, Set<Authority> authorities, String company, List<Session> sessionList) {
+        super(firstname, lastname, email, password, authorities);
         this.company = company;
         this.sessionList = sessionList;
     }
@@ -38,11 +39,4 @@ public class Student extends User {
         this.sessionList = sessionList;
     }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "company='" + company + '\'' +
-                ", sessionList=" + sessionList +
-                '}';
-    }
 }
