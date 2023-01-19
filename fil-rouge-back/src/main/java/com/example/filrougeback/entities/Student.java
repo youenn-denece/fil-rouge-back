@@ -1,10 +1,12 @@
 package com.example.filrougeback.entities;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.List;
 import java.util.Set;
 
+@Data
 @Entity
 @DiscriminatorValue("Student")
 public class Student extends User {

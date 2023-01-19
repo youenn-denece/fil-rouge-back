@@ -1,11 +1,18 @@
 package com.example.filrougeback.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.ToString;
 
+import java.util.Collection;
 import java.util.List;
 
 @Entity
+@Data
 public class Course {
 
     @Id
@@ -14,14 +21,17 @@ public class Course {
 
     private String name;
 
+    @Column(columnDefinition="TEXT")
     private String description;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "CATEGORY_ID")
     private Category category;
 
-    @OneToMany(mappedBy = "course")
-    private List<Teacher> teacherList;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "course",fetch = FetchType.LAZY)
+    private Collection<Teacher> teacherList;
 
     @OneToMany(mappedBy = "course")
     private List<Session> sessionList;
@@ -33,7 +43,7 @@ public class Course {
 
     }
 
-    public Course(String name, String description, Category category, List<Teacher> teacherList, List<Session> sessionList) {
+    public Course(String name, String description, Category category, Collection<Teacher> teacherList, List<Session> sessionList) {
         this.name = name;
         this.description = description;
         this.category = category;
@@ -73,14 +83,15 @@ public class Course {
         this.category = category;
     }
 
-    public List<Teacher> getTeacherList() {
+    public Collection<Teacher> getTeacherList() {
         return teacherList;
     }
 
-    public void setTeacherList(List<Teacher> teacherList) {
+    public void setTeacherList(Collection<Teacher> teacherList) {
         this.teacherList = teacherList;
     }
 
+    @JsonManagedReference
     public List<Session> getSessionList() {
         return sessionList;
     }
@@ -89,15 +100,4 @@ public class Course {
         this.sessionList = sessionList;
     }
 
-    @Override
-    public String toString() {
-        return "Course{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", category=" + category +
-                ", teacherList=" + teacherList +
-                ", sessionList=" + sessionList +
-                '}';
-    }
 }

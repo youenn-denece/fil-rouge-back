@@ -1,11 +1,14 @@
 package com.example.filrougeback.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.util.Date;
 import java.util.List;
 
+@Data
 @Entity
 public class Session {
 
@@ -13,10 +16,12 @@ public class Session {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "CAMPUS_ID")
     private Campus campus;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "TEACHER_ID")
     private Teacher teacher;
@@ -25,6 +30,7 @@ public class Session {
     @JoinColumn(name = "COURSE_ID")
     private Course course;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "CLASSROOM_ID")
     private Classroom classroom;
@@ -93,6 +99,7 @@ public class Session {
         this.teacher = teacher;
     }
 
+    @JsonBackReference
     public Course getCourse() {
         return course;
     }
@@ -157,20 +164,4 @@ public class Session {
         this.studentList = studentList;
     }
 
-    @Override
-    public String toString() {
-        return "Session{" +
-                "id=" + id +
-                ", campus=" + campus +
-                ", teacher=" + teacher +
-                ", course=" + course +
-                ", classroom=" + classroom +
-                ", isInter=" + isInter +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", price=" + price +
-                ", maxStudentNumber=" + maxStudentNumber +
-                ", studentList=" + studentList +
-                '}';
-    }
 }
