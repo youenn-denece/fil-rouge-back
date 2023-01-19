@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -18,8 +19,8 @@ public class Student extends User {
         super();
     }
 
-    public Student(String firstname, String lastname, String email, String password, String company, List<Session> sessionList) {
-        super(firstname, lastname, email, password);
+    public Student(String firstname, String lastname, String email, String password, Set<Authority> authorities, String company, List<Session> sessionList) {
+        super(firstname, lastname, email, password, authorities);
         this.company = company;
         this.sessionList = sessionList;
     }
